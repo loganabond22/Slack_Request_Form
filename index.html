@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get in touch with Logan Bond</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F5F0;
+      --card: #FFFFFF;
+      --border: rgba(0,0,0,0.1);
+      --text: #1A1A1A;
+      --muted: #6B6B6B;
+      --accent: #1A1A1A;
+      --slack: #4A154B;
+      --slack-hover: #3a0f3b;
+      --green: #1D9E75;
+      --amber: #BA7517;
+      --red: #A32D2D;
+      --green-bg: #EAF3DE;
+      --amber-bg: #FAEEDA;
+      --red-bg: #FCEBEB;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--slack);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .field {
+      margin-bottom: 1.1rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--slack);
+      background: #fff;
+    }
+
+    .field textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .urgency-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .urgency-btn {
+      flex: 1;
+      padding: 9px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--muted);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .urgency-btn:hover { border-color: #aaa; }
+    .urgency-btn.sel-low { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+    .urgency-btn.sel-medium { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
+    .urgency-btn.sel-high { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--slack);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+    }
+
+    .submit-btn:hover { background: var(--slack-hover); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .slack-icon { width: 18px; height: 18px; fill: #fff; }
+
+    .error { font-size: 12px; color: var(--red); margin-top: 4px; display: none; }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1.25rem 0;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .success h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .success p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .reset-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 18px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover { border-color: #aaa; }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 480px) {
+      .row { grid-template-columns: 1fr; }
+      .card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="avatar">LB</div>
+      <h1>Get in touch with Logan Bond</h1>
+      <p>Fill out this form and Logan will receive your request directly via Slack.</p>
+    </div>
+
+    <div class="card">
+      <div id="formContent">
+        <div class="row">
+          <div class="field">
+            <label for="fname">Your name</label>
+            <input type="text" id="fname" placeholder="Jane Smith" />
+            <p class="error" id="fname-err">Please enter your name.</p>
+          </div>
+          <div class="field">
+            <label for="femail">Your email</label>
+            <input type="email" id="femail" placeholder="jane@company.com" />
+            <p class="error" id="femail-err">Please enter a valid email.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fsubject">Subject</label>
+          <input type="text" id="fsubject" placeholder="What's this about?" />
+          <p class="error" id="fsubject-err">Please add a subject.</p>
+        </div>
+
+        <div class="field">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" placeholder="Describe what you need..."></textarea>
+          <p class="error" id="fmessage-err">Please add a message.</p>
+        </div>
+
+        <div class="field">
+          <label>Urgency</label>
+          <div class="urgency-group">
+            <button class="urgency-btn" data-val="low" onclick="selectUrgency(this)">🟢 Low</button>
+            <button class="urgency-btn sel-medium" data-val="medium" onclick="selectUrgency(this)">🟡 Medium</button>
+            <button class="urgency-btn" data-val="high" onclick="selectUrgency(this)">🔴 High</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label for="fcontact">Best way to reach you back <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="text" id="fcontact" placeholder="Slack handle, phone, or just reply by email" />
+        </div>
+
+        <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+          <svg class="slack-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+          Send request to Logan
+        </button>
+      </div>
+
+      <div class="success" id="successBox">
+        <div class="success-icon">✅</div>
+        <h2>Request sent!</h2>
+        <p>Logan has been notified on Slack and will get back to you soon.</p>
+        <button class="reset-btn" onclick="resetForm()">Submit another request</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let urgency = 'medium';
+
+    function selectUrgency(el) {
+      document.querySelectorAll('.urgency-btn').forEach(b => {
+        b.className = 'urgency-btn';
+      });
+      urgency = el.dataset.val;
+      el.classList.add('sel-' + urgency);
+    }
+
+    function validate() {
+      let ok = true;
+      const checks = [
+        { id: 'fname', err: 'fname-err', fn: v => v.trim().length > 0 },
+        { id: 'femail', err: 'femail-err', fn: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        { id: 'fsubject', err: 'fsubject-err', fn: v => v.trim().length > 0 },
+        { id: 'fmessage', err: 'fmessage-err', fn: v => v.trim().length > 0 },
+      ];
+      checks.forEach(c => {
+        const val = document.getElementById(c.id).value;
+        const el = document.getElementById(c.err);
+        if (!c.fn(val)) { el.style.display = 'block'; ok = false; }
+        else { el.style.display = 'none'; }
+      });
+      return ok;
+    }
+
+    async function submitForm() {
+      if (!validate()) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+      const name = document.getElementById('fname').value.trim();
+      const email = document.getElementById('femail').value.trim();
+      const subject = document.getElementById('fsubject').value.trim();
+      const message = document.getElementById('fmessage').value.trim();
+      const contact = document.getElementById('fcontact').value.trim();
+      const urgencyLabel = { low: '🟢 Low', medium: '🟡 Medium', high: '🔴 High' }[urgency];
+
+      const slackMsg = `*📬 New request for you, Logan!*\n\n*From:* ${name} (${email})\n*Subject:* ${subject}\n*Urgency:* ${urgencyLabel}\n*Message:*\n${message}${contact ? '\n*Best way to reach back:* ' + contact : ''}`;
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1000,
+            mcp_servers: [{ type: 'url', url: 'https://mcp.slack.com/mcp', name: 'slack-mcp' }],
+            messages: [{
+              role: 'user',
+              content: `Send a Slack direct message to the user with display name "Logan Bond". The message is:\n\n${slackMsg}\n\nJust send the message, no explanation needed.`
+            }]
+          })
+        });
+
+        const data = await res.json();
+        if (data.content) {
+          document.getElementById('formContent').style.display = 'none';
+          document.getElementById('successBox').style.display = 'block';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (e) {
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="slack-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg> Send request to Logan`;
+        alert('Something went wrong. Please try again.');
+      }
+    }
+
+    function resetForm() {
+      ['fname','femail','fsubject','fmessage','fcontact'].forEach(id => document.getElementById(id).value = '');
+      urgency = 'medium';
+      document.querySelectorAll('.urgency-btn').forEach(b => b.className = 'urgency-btn');
+      document.querySelector('[data-val="medium"]').classList.add('sel-medium');
+      document.getElementById('formContent').style.display = 'block';
+      document.getElementById('successBox').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
